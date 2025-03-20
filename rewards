@@ -1,0 +1,19 @@
+pragma solidity ^0.8.0;
+
+contract InteractionLogger {
+    struct Interaction {
+        address user;
+        uint256 timestamp;
+    }
+
+    mapping(uint256 => Interaction) public interactions;
+    uint256 public interactionCount;
+
+    event InteractionLogged(address indexed user, uint256 timestamp);
+
+    function logInteraction() public {
+        interactions[interactionCount] = Interaction(msg.sender, block.timestamp);
+        emit InteractionLogged(msg.sender, block.timestamp);
+        interactionCount++;
+    }
+}
